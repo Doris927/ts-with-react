@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const MouseTracker: React.FC = () => {
+// 必须用use开头
+const useMousePosition = () => {
     const [positions, setPositions] = useState({x:0, y:0});
+    
     useEffect(() => {
         console.log('add effect');
         const updateMouse = (e: MouseEvent) => {
-            console.log('inner');
             setPositions({x: e.clientX, y: e.clientY});
         }
         document.addEventListener('click', updateMouse);
@@ -15,11 +16,8 @@ const MouseTracker: React.FC = () => {
             document.removeEventListener('click', updateMouse);
         }
     }, []);
-    return (
-        <p>
-            X:{positions.x}, Y:{positions.y}
-        </p>
-    );
+    
+    return positions;
 }
 
-export default MouseTracker;
+export default useMousePosition;
